@@ -95,6 +95,7 @@ Below is a sample waveform showing the UART-based interaction between the testbe
 - The calculator handles one full operation at a time.
 - Division by zero is flagged through the `error` output from the ALU (optional use).
 - ASCII characters for operators must be used when sending.
+- The calculator does not detect or handle overflow.
 
 ---
 

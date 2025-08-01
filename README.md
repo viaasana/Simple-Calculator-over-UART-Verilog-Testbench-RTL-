@@ -83,6 +83,12 @@ send(8'd10);         // Operand 2
 
 ---
 
+## 📈 Waveform Example
+
+Below is a sample waveform showing the UART-based interaction between the testbench and the calculator module, including operand and operator input and result transmission:
+
+![UART Waveform](waveform.png)
+
 ## 📌 Notes
 
 - UART module is assumed to be present and connected correctly. Ensure `uart.v` supports `TX_START`, `RX_DATA`, `TX_DATA`, and `value_intr`.

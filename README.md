@@ -10,8 +10,8 @@ There are 2 versions: pipeline and non-pipeline.
 - Configurable clock and baud rate.
 - Testbench includes automatic transmission of test data.
 - Two Calculator Architectures:
-  - Non-Pipeline (simple_calculator.v)
-  - Pipeline (simple_calculator_v2.v)
+  - Non-Pipeline (`simple_calculator.v`)
+  - Pipeline (`simple_calculator_v2.v`)
 
 ---
 

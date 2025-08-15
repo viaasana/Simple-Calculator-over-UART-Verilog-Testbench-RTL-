@@ -82,7 +82,7 @@ There are 2 versions: pipeline and non-pipeline.
 ![Pipeline timing diagram](pipeline_timing.png)
 - Non-pipline need 12 time units for 4 request
 ![Non-pipeline timing diagram](non_pipeline_timing.png)
-## In simulation (request 30 operation in test bench)
+## In simulation (request 30 operations in testbench)
 - Pipeline performance comparison table in test
 ![Pipeline performance comparison table in test](performance.png)
 - Difference in respone time of 2 modules

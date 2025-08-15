@@ -1,7 +1,7 @@
 # Simple Calculator over UART (Verilog Testbench + RTL)
 
 This project implements a simple calculator module (`simple_caculator`) in Verilog that communicates via UART. A testbench (`tb_simple_caculator`) simulates the UART transmission of operands and operators, and verifies the response from the calculator module.
-
+There are 2 versions: pipeline and non-pipeline.
 ## 🧮 Features
 
 - Performs basic arithmetic operations: addition, subtraction, multiplication, division.
@@ -78,16 +78,15 @@ This project implements a simple calculator module (`simple_caculator`) in Veril
 
 ## 🚀 Performance Comparison
 ## In theory
+- Pipeline need 6 time units for 4 request
 ![Pipeline timing diagram](pipeline_timing.png)
-Pipeline need 6 time units for 4 request
-![Non-ipeline timing diagram](non_pipeline_timing.png)
-Non-pipline need 12 time units for 4 request
+- Non-pipline need 12 time units for 4 request
+![Non-pipeline timing diagram](non_pipeline_timing.png)
 ## In reality (request 30 operation in test bench)
+- Pipeline performance comparison table in test
 ![Pipeline performance comparison table in test](performance.png)
+- Difference in respone time of 2 modules
 ![Difference in respone time of 2 modules](chart.png)
-
-
-
 
 ## 🛠️ To-Do
 

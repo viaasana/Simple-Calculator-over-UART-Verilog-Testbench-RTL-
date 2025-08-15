@@ -10,7 +10,8 @@ module uart#(
     input wire ACK,
     output reg TX,
     output reg [7:0] RX_DATA,
-    output reg value_intr
+    output reg value_intr,
+    output reg tx_done
 );
 
     parameter BAUD_DIV = CLK_FREQ / BAUD; // this mean how many CLK then read/wire one bit;
@@ -71,6 +72,8 @@ module uart#(
         if(!RST) begin
             tx_baud_tick <=0;
             tx_baud_cnt <= 16'b0;
+            value_intr <= 0;
+            tx_done <= 0;
         end else if(tx_baud_cnt >= BAUD_DIV-1) begin
             tx_baud_cnt <= 16'b0;
             tx_baud_tick <= 1;
@@ -92,6 +95,7 @@ module uart#(
                 TX <= 0;
                 tx_bit_cnt <= 0;
                 tx_state <= 2'd1;
+                tx_done <= 0;
             end else
                 TX <= 1;
 
@@ -104,6 +108,7 @@ module uart#(
             2: if(tx_baud_tick) begin
                 TX <= 1;
                 tx_state <=2'd0;
+                tx_done <= 1; // signal that transmission is done
             end
 
         endcase

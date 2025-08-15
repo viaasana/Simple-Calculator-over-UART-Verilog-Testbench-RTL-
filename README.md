@@ -9,6 +9,9 @@ This project implements a simple calculator module (`simple_caculator`) in Veril
 - Finite State Machine (FSM) handles the data flow.
 - Configurable clock and baud rate.
 - Testbench includes automatic transmission of test data.
+- Two Calculator Architectures:
+  - Non-Pipeline (simple_calculator.v)
+  - Pipeline (simple_calculator_v2.v)
 
 ---
 
@@ -22,7 +25,11 @@ This project implements a simple calculator module (`simple_caculator`) in Veril
 ├── alu
 │   ├── ALU.v              # Arithmetic Logic Unit
 │   └── tb_ALU.v           # Testbench for ALU
-├── simple_caculator.v     # Calculator module with UART input/output
+├── FIFO
+│   ├── FIFO.v              # Queue Unit
+│   └── tb_FIFO.v           # Testbench for queue
+├── simple_caculator.v     # None-pipline Calculator module 
+├── simple_caculator_v2.v     # Pipeline Calculator module
 ├── tb_simple_caculator.v  # Testbench for simulating calculator logic
 └── README.md              # This documentation file
 ```
@@ -48,11 +55,15 @@ This project implements a simple calculator module (`simple_caculator`) in Veril
 
 ## 🔧 How It Works
 
-### States in FSM (`simple_caculator`)
-1. **READ_OP1**: Waits for first operand via UART.
-2. **READ_OPCODE**: Receives operator (`+`, `-`, `x`, `/`).
-3. **READ_OP2**: Waits for second operand.
-4. **SEND_RESULT**: Computes the result and transmits it back over UART.
+## Non-pipeline version
+- Receives an entire expression.
+- Executes it sequentially.
+- Starts the next operation only after the previous result is sent.
+## Pipeline version
+- Splits execution into stages (Fetch, Execute, Send back).
+- Each stage processes a different operation in parallel.
+- This allows overlapping work and reduces overall latency.
+
 
 ### Supported Operations
 | Operator | Meaning         |
@@ -64,47 +75,26 @@ This project implements a simple calculator module (`simple_caculator`) in Veril
 
 ---
 
-## 🧪 Simulation
 
-To simulate the module:
+## 🚀 Performance Comparison
+## In theory
+![Pipeline timing diagram](pipeline_timing.png)
+Pipeline need 6 time units for 4 request
+![Non-ipeline timing diagram](non_pipeline_timing.png)
+Non-pipline need 12 time units for 4 request
+## In reality (request 30 operation in test bench)
+![Pipeline performance comparison table in test](performance.png)
+![Difference in respone time of 2 modules](chart.png)
 
-1. Use any Verilog simulator (e.g., ModelSim, Vivado, Icarus Verilog).
-2. Run the testbench `tb_simple_caculator.v`.
-3. Observe UART input/output and FSM state transitions via `$monitor` and `$display`.
 
-Example simulation sequence:
 
-```verilog
-send(8'd5);          // Operand 1
-send("+");           // Operator
-send(8'd10);         // Operand 2
-// Expected output: 15
-```
-
----
-
-## 📈 Waveform Example
-
-Below is a sample waveform showing the UART-based interaction between the testbench and the calculator module, including operand and operator input and result transmission:
-
-![UART Waveform](waveform.png)
-
-## 📌 Notes
-
-- UART module is assumed to be present and connected correctly. Ensure `uart.v` supports `TX_START`, `RX_DATA`, `TX_DATA`, and `value_intr`.
-- The calculator handles one full operation at a time.
-- Division by zero is flagged through the `error` output from the ALU (optional use).
-- ASCII characters for operators must be used when sending.
-- The calculator does not detect or handle overflow.
-
----
 
 ## 🛠️ To-Do
 
 - [ ] Add error handling and reporting (e.g., divide by zero).
 - [ ] Extend to handle negative numbers and signed operations.
 - [ ] Support for floating point (future work).
-- [ ] **Add pipelining to improve performance.**
+- [x] **Add pipelining to improve performance.**
 
 ---
 

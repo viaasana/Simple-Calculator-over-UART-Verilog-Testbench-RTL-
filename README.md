@@ -85,7 +85,7 @@ There are 2 versions: pipeline and non-pipeline.
 ## In simulation (request 30 operations in testbench)
 - Pipeline performance comparison table in test
 ![Pipeline performance comparison table in test](performance.png)
-- Difference in respone time of 2 modules
+- Difference in respone time of 2 modules (The time between calculations decreases)
 ![Difference in respone time of 2 modules](chart.png)
 
 ## 🛠️ To-Do

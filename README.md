@@ -1,4 +1,4 @@
-# Simple Calculator over UART (Verilog Testbench + RTL)
+# Simple Calculator over UART using Verilog
 
 This project implements a simple calculator module (`simple_caculator` and `simple_caculator_v2`) in Verilog that communicates via UART. A testbench (`tb_simple_caculator`) simulates the UART transmission of operands and operators, and verifies the response from the calculator module.
 There are 2 versions: pipeline and non-pipeline.
